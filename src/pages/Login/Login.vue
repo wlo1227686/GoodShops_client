@@ -44,7 +44,7 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="驗證碼" v-model="captcha">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img class="get_verification" :src="CAPTCHA_URL" alt="captcha" ref="captcha" @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -62,6 +62,7 @@
 </template>
 <script>
 import AlertTip from '../../components/AlertTip/AlertTip.vue'
+import { reqSendPhoneCode, reqLoginSms, reqLoginPwd } from '../../api'
 let intervalId = ''
 export default {
   data() {
@@ -77,6 +78,7 @@ export default {
       phoneCode: '', // 手機驗證碼
 
       // 密碼登入 loginType=2
+      CAPTCHA_URL: 'http://localhost:4000/captcha',
       name: '',
       pwd: '',// 用戶密碼
       showPassword: false, // 密碼輸入框是否需要遮掩 (true:不遮掩 false:遮掩)
@@ -87,8 +89,8 @@ export default {
       return /^09\d{8}$/.test(this.phoneNumber)
     },
   }, methods: {
-    getPhoneCode() { // 手機登入取得驗證碼
-      //      console.log('---getPhoneCode---intervalId=' + intervalId)
+    async getPhoneCode() { // 手機登入取得驗證碼(異步)
+      // console.log('---getPhoneCode---intervalId=' + intervalId)
       if (intervalId === '') { // 確定目前沒有計時Id才啟動
         this.computeTime = 30 // 設置計時秒數
         this.phoneNumberLock = true //鎖定電話輸入框
@@ -96,35 +98,75 @@ export default {
         intervalId = setInterval(() => {
           this.computeTime--
           if (this.computeTime <= 0) {
-            clearInterval(intervalId)
-            intervalId = ''
-            this.phoneNumberLock = false //解鎖電話輸入框
+            this.stopIntervalId()
           }
         }, 1000)
         // 發送ajax請求(向指定手機號碼發送驗證碼訊息)
+        const result = await reqSendPhoneCode(this.phoneNumber)
+        if (result.code === 1) { // 簡訊發送失敗
+          // 顯示提示訊息
+          this.alertMessage(result.msg)
+          // 停止倒數計時
+          if (this.computeTime) {
+            this.stopIntervalId()
+          }
+        }
       } // end_if
     },
-    login() { // 異步登入
+    async login() { // 異步登入
+      let result = undefined
       // 判斷登入模式
       if (this.loginType == 1) { // 1:手機登入
-        // console.log("checkPhoneNumber=" + this.phoneNumber + " phoneCode=" + this.phoneCode)
         const { checkPhoneNumber, phoneNumber, phoneCode } = this
+        console.log("phoneNumber=" + phoneNumber + " phoneCode=" + phoneCode)
         if (!this.checkPhoneNumber) {
           this.alertMessage('手機號碼不正確') // 手機號碼不正確
+          return
         } else if (!/^\d{6}$/.test(phoneCode) || '' === phoneCode) {
           this.alertMessage('驗證碼不正確') // 驗證碼不正確
+          return
         }
+        //發送ajax請求手機驗證碼登入
+        result = await reqLoginSms(phoneNumber, phoneCode)
+
       } else if (this.loginType == 2) { // 2:密碼登入
         const { name, pwd, captcha } = this
         if (!this.name) {
           this.alertMessage('用戶名稱為必填') // 用戶名稱為必填
+          return
         } else if (!this.pwd) {
           this.alertMessage('密碼為必填') // 密碼為必填
+          return
         } else if (!this.captcha) {
           this.alertMessage('驗證碼必填') // 驗證碼必填
+          return
         }
+        //發送ajax請求密碼登入
+        result = await reqLoginPwd({ name, pwd, captcha })
+
       }// end-if 
+
+      if (result.code === 0) { // 登入成功
+        const user = result.data
+
+        // 将user保存到vuex的state
+        this.$store.dispatch('recordUser', user)
+
+        // 將user保存到vuex的state
+        // this.$store.commit('userInfo', user)
+        
+        // 回到個人中心頁面
+        this.$router.replace('/profile')
+
+      } else if (result.code === 1) {// 登入失敗
+
+        this.getCaptcha() // 重新取得驗證碼
+        this.alertMessage(result.msg) // 顯示提示訊息
+      }
+
+
     },
+
     alertMessage(message) { // 提示訊息
       this.alertText = message
       this.showAlert = true
@@ -132,7 +174,18 @@ export default {
     closeTip() { // 關閉提示視窗
       this.alertText = ''
       this.showAlert = false
-    }
+    },
+    getCaptcha() { // 取得新的圖型驗證碼
+      if (this.loginType === 2) {
+        this.$refs.captcha.src = this.CAPTCHA_URL + '?time=' + Date.now()
+      }
+    },
+    stopIntervalId() { // 停止簡訊發送倒數計時
+      this.computeTime = 0
+      clearInterval(intervalId)
+      intervalId = ''
+      this.phoneNumberLock = false //解鎖電話輸入框
+    },
   }, components: {
     AlertTip
   },

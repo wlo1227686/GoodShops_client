@@ -5,12 +5,13 @@ import {
     RECEIVE_ADDRESS,
     RECEIVE_CATEGORYS,
     RECEIVE_SHOPS,
+    RECEIVE_USER_INFO,
 } from './mutation-types'
 
 import {
     reqAddress,
     reqFoodCategorys,
-    reqShops
+    reqShops,
 } from '../api'
 
 export default {
@@ -29,7 +30,7 @@ export default {
     //異步獲取食品分類清單
     async getCategorys({ commit }) {
         // 發送異步ajax請求
-        const result = await reqFoodCategorys() 
+        const result = await reqFoodCategorys()
         // 提交一個mutation
         if (result.code === 0) {
             const categorys = result.data
@@ -48,4 +49,16 @@ export default {
             commit(RECEIVE_SHOPS, { shops })
         }
     },
+
+    // //同步獲取用戶訊息
+    // saveUserInfo({ commit }, userInfo) {
+    //     commit(RECEIVE_USER_INFO, { userInfo })
+    // },
+
+    // 同步记录用户信息
+    recordUser({ commit }, userInfo) {
+        commit(RECEIVE_USER_INFO, { userInfo })
+    },
+
+
 }

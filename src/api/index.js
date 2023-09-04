@@ -22,13 +22,17 @@ export const reqShops = (a, b) => ajax(BASE_URL + '/shops', { latitude: a, longi
 // 4. 根據經緯度和關鍵字搜索商鋪列表
 export const reqSearchShops = (geohash, keyword) => ajax(BASE_URL + '/search_shops', { geohash, keyword })
 
-// 5. 獲取一次性驗證碼
-export const reqCaptcha = () => ajax(BASE_URL + '/captcha')
+// 6. 登入_用戶名密碼
+export const reqLoginPwd = ({ name, pwd, captcha }) => ajax(BASE_URL + '/login_pwd', { name, pwd, captcha }, 'POST')
 
-// 6. 用戶名密碼登入
-export const reqLoginPwd = (name, pwd, captcha) => ajax(BASE_URL + '/login_pwd', { name, pwd, captcha })
+// 7. 登入_手機號碼驗證碼
+export const reqLoginSms = (phone, code) => ajax(BASE_URL + '/login_sms', { phone, code }, 'POST')
 
-// 7. 發送短信驗證碼
-// 8. 手機號碼驗證碼登入
+// 8. 發送短信驗證碼
+export const reqSendPhoneCode = (phone) => ajax(BASE_URL + '/sendcode', { phone })
+
 // 9. 根據會話獲取用戶信息
+export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
+
 //10. 用戶登出
+export const reqLogout = () => ajax(BASE_URL + '/logout')
