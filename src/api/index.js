@@ -36,3 +36,13 @@ export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
 
 //10. 用戶登出
 export const reqLogout = () => ajax(BASE_URL + '/logout')
+
+// 透過mockjs來產生畫面資料
+//Shop頁面取得商家簡介
+export const reqShopInfo =()=>ajax('/shopInfo')
+
+//Shop頁面取得商家評價
+export const reqShopRatings =()=>ajax('/shop_ratings')
+
+//Shop頁面取得商家菜單
+export const reqShopGoods =()=>ajax('/shop_goods')

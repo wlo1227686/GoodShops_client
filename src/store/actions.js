@@ -7,6 +7,10 @@ import {
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
+    //Shop
+    RECEIVE_GOODS,
+    RECEIVE_SHOP_INFO,
+    RECEIVE_RATINGS,
 } from './mutation-types'
 
 import {
@@ -15,6 +19,10 @@ import {
     reqShops,
     reqUserInfo,
     reqLogout,
+    //Shop
+    reqShopGoods,
+    reqShopInfo,
+    reqShopRatings,
 } from '../api'
 
 export default {
@@ -77,5 +85,30 @@ export default {
         }
     },
 
+    // 異步取得商家簡介
+    async getShopInfo({ commit }) {
+        const result = await reqShopInfo()
+        if (result.code === 0) {
+            const shopInfo = result.data
+            commit(RECEIVE_SHOP_INFO, { shopInfo })
+        }
+    },
 
+    // 異步取得商家評價
+    async getShopRatings({ commit }) {
+        const result = await reqShopRatings()
+        if (result.code === 0) {
+            const ratings = result.data
+            commit(RECEIVE_RATINGS, { ratings })
+        }
+    },
+
+    // 異步取得商家菜單
+    async getShopGoods({ commit }) {
+        const result = await reqShopGoods()
+        if (result.code === 0) {
+            const goods = result.data
+            commit(RECEIVE_GOODS, { goods })
+        }
+    }
 }
