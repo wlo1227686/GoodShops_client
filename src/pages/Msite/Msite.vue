@@ -3,20 +3,25 @@
     <!--首頁頭部-->
     <HeaderTop :title="address.name">
       <!-- slot左側(L) -->
-      <span class="header_search" slot="left">
+      <router-link class="header_search" slot="left" to="/search">
         <i class="iconfont icon-sousuo"></i>
-      </span>
+      </router-link>
       <!-- slot右側(R) -->
-      <span class="header_login" slot="right">
-        <span class="header_login_text">登入|註冊</span>
-      </span>
+      <router-link class="header_login" slot="right" :to="userInfo._id ? '/profile' : '/login'">
+        <span class="header_login_text" v-if="userInfo._id">
+          <i class="iconfont icon-person"></i>
+        </span>
+        <span class="header_login_text" v-else>
+          登入|註冊
+        </span>
+      </router-link>
     </HeaderTop>
     <!--導航Swiper-->
     <nav class="msite_nav">
       <div class="swiper-container" v-if="categorys.length">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(categorys, index) in categoryArrays " :key="index">
-            <a href="javascript:" class="link_to_food" v-for="(category, index) in categorys " :key="index">
+          <div class="swiper-slide" v-for="( categorys, index ) in  categoryArrays  " :key="index">
+            <a href="javascript:" class="link_to_food" v-for="( category, index ) in  categorys  " :key="index">
               <div class="food_container">
                 <img :src="baseImageUrl + category.image_url">
               </div>
@@ -47,7 +52,7 @@ import { mapState } from 'vuex'
 import Swiper from 'swiper' // 導航Swiper
 import 'swiper/dist/css/swiper.min.css'
 
-import HeaderTop from '../../components/HeaderTop/HeaderTop.vue' // 首頁頭部
+import HeaderTop from '../../components/HeaderTop/HeaderTop' // 首頁頭部
 import ShopList from '../../components/ShopList/shopList'  // 商家清單
 
 export default {
@@ -61,7 +66,7 @@ export default {
     this.$store.dispatch('getShops') // 取得商鋪清單
   },
   computed: {
-    ...mapState(['address', 'categorys']),
+    ...mapState(['address', 'categorys', 'userInfo']),
     //根據categorys內容，整理成一個2維陣列,每個陣列元素最多為8個
     categoryArrays() {
       const { categorys } = this

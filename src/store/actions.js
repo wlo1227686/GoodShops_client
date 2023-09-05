@@ -6,12 +6,15 @@ import {
     RECEIVE_CATEGORYS,
     RECEIVE_SHOPS,
     RECEIVE_USER_INFO,
+    RESET_USER_INFO,
 } from './mutation-types'
 
 import {
     reqAddress,
     reqFoodCategorys,
     reqShops,
+    reqUserInfo,
+    reqLogout,
 } from '../api'
 
 export default {
@@ -50,14 +53,28 @@ export default {
         }
     },
 
-    // //同步獲取用戶訊息
-    // saveUserInfo({ commit }, userInfo) {
-    //     commit(RECEIVE_USER_INFO, { userInfo })
-    // },
-
-    // 同步记录用户信息
-    recordUser({ commit }, userInfo) {
+    //同步獲取用戶訊息
+    saveUserInfo({ commit }, userInfo) {
         commit(RECEIVE_USER_INFO, { userInfo })
+    },
+
+    //異步取得用戶訊息
+    async getUserInfo({ commit }) {
+        const result = await reqUserInfo()
+        // 提交一個mutation
+        if (result.code === 0) {
+            const userInfo = result.data
+            commit(RECEIVE_USER_INFO, { userInfo })
+        }
+    },
+
+    //異步取得用戶訊息
+    async doUserLogout({ commit }) {
+        const result = await reqLogout()
+        // 提交一個mutation
+        if (result.code === 0) {
+            commit(RESET_USER_INFO)
+        }
     },
 
 

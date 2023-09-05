@@ -13,10 +13,11 @@ export default {
     mounted() {
         //取得Address
         this.getAddress()
+        this.getUserInfo()
     },
 
     methods: {
-        ...mapActions(['getAddress'])
+        ...mapActions(['getAddress','getUserInfo'])
     },
     components: {
         FooterGuide

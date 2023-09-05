@@ -147,19 +147,14 @@ export default {
       }// end-if 
 
       if (result.code === 0) { // 登入成功
-        const user = result.data
-
-        // 将user保存到vuex的state
-        this.$store.dispatch('recordUser', user)
-
-        // 將user保存到vuex的state
-        // this.$store.commit('userInfo', user)
+        const userInfo = result.data
+        // 將UserInfo保存至store
+        this.$store.dispatch('saveUserInfo',userInfo)
         
         // 回到個人中心頁面
         this.$router.replace('/profile')
 
       } else if (result.code === 1) {// 登入失敗
-
         this.getCaptcha() // 重新取得驗證碼
         this.alertMessage(result.msg) // 顯示提示訊息
       }

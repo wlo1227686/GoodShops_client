@@ -5,17 +5,17 @@
 
     <section class="profile-number">
       <!-- 登入頁面 -->
-      <router-link to="/login" class="profile-link">
+      <router-link class="profile-link" :to="userInfo._id ? '/userinfo' : '/login'">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">{{ userInfo._id || '登入/註冊' }}</p>
+          <p class="user-info-top" v-if="!userInfo.phone">{{ userInfo.name || '登入/註冊' }}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
             </span>
-            <span class="icon-mobile-number">無綁定手機號碼</span>
+            <span class="icon-mobile-number">{{ userInfo.phone || '無綁定手機號碼' }}</span>
           </p>
         </div>
         <span class="arrow">
@@ -52,7 +52,7 @@
           </span>
         </div>
       </a>
-      <!-- 積分商城 -->
+      <!-- 紅利商城 -->
       <a href='javascript:' class="my_order">
         <span>
           <i class="iconfont icon-jifen"></i>
@@ -64,7 +64,7 @@
           </span>
         </div>
       </a>
-      <!-- 丞富外賣會員卡 -->
+      <!-- 賣會員卡 -->
       <a href="javascript:" class="my_order">
         <span>
           <i class="iconfont icon-vip"></i>
@@ -91,14 +91,31 @@
         </div>
       </a>
     </section>
+    <section class="profile_my_order border-1px" v-show="userInfo._id">
+      <!-- 登出按鈕 -->
+      <mt-button type="danger" style="width:100%" @click="logout">登出</mt-button>
+    </section>
   </section>
 </template>
 <script>
 import { mapState } from 'vuex' // vuex
-import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+import { MessageBox } from 'mint-ui' // mint-ui
+import { reqLogout } from '../../api'
+import HeaderTop from '../../components/HeaderTop/HeaderTop'
 export default {
   computed: {
     ...mapState(['userInfo']),
+  }, methods: {
+    logout() {
+      MessageBox.confirm('是否要退出').then(
+        action => { // 點擊確認
+          this.$store.dispatch('doUserLogout')
+        },
+        action => { // 點擊取消
+          console.log('點擊取消')
+        }
+      )
+    }
   },
   components: {
     HeaderTop
