@@ -9,7 +9,7 @@ import {
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
 //Shop
-    RECEIVE_GOODS,
+    RECEIVE_SHOP_GOODS,
     RECEIVE_SHOP_INFO,
     RECEIVE_RATINGS,
 } from './mutation-types'
@@ -35,8 +35,8 @@ export default {
         state.userInfo = {}
     },
     //shop
-    [RECEIVE_GOODS](state, { goods }) {
-        state.goods = userInfo
+    [RECEIVE_SHOP_GOODS](state, { shopGoods }) {
+        state.shopGoods = shopGoods
     },
 
     [RECEIVE_RATINGS](state, { ratings }) {

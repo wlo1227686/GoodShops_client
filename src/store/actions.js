@@ -8,7 +8,7 @@ import {
     RECEIVE_USER_INFO,
     RESET_USER_INFO,
     //Shop
-    RECEIVE_GOODS,
+    RECEIVE_SHOP_GOODS,
     RECEIVE_SHOP_INFO,
     RECEIVE_RATINGS,
 } from './mutation-types'
@@ -104,11 +104,13 @@ export default {
     },
 
     // 異步取得商家菜單
-    async getShopGoods({ commit }) {
+    async getShopGoods({ commit }, callback) {
         const result = await reqShopGoods()
         if (result.code === 0) {
-            const goods = result.data
-            commit(RECEIVE_GOODS, { goods })
+            const shopGoods = result.data
+            commit(RECEIVE_SHOP_GOODS, { shopGoods })
+            // 數據更新後通知組件
+            callback && callback()
         }
     }
 }

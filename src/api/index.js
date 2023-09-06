@@ -45,4 +45,4 @@ export const reqShopInfo =()=>ajax('/shopInfo')
 export const reqShopRatings =()=>ajax('/shop_ratings')
 
 //Shop頁面取得商家菜單
-export const reqShopGoods =()=>ajax('/shop_goods')
+export const reqShopGoods =()=>ajax('/shopGoods')
