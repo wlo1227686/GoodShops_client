@@ -36,8 +36,7 @@
                     <span class="old" v-if="food.oldPrice">${{ food.oldPrice }}</span><!-- 原始價格 -->
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl
-                    <!-- <CartControl :food="food" /> -->
+                    <CartControl :food="food" />
                   </div>
                 </div>
               </li>
@@ -53,7 +52,7 @@
 <script>
 import BScroll from 'better-scroll'
 import { mapState } from 'vuex'
-// import CartControl from '../../../components/CartControl/CartControl.vue'
+import CartControl from '../../../components/CartControl/CartControl.vue'
 // import Food from '../../../components/Food/Food.vue'
 // import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
@@ -152,7 +151,7 @@ export default {
   },
 
   components: {
-    // CartControl,
+    CartControl,
     // Food,
     // ShopCart
   }
@@ -214,8 +213,8 @@ export default {
         background: #f3f5f7
       .food-item
         display: flex
-        margin: 18px
-        padding-bottom: 18px
+        margin: 5px
+        padding-bottom: 5px
         bottom-border-1px(rgba(7, 17, 27, 0.1))
         &:last-child
           border-none()

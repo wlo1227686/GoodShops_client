@@ -11,6 +11,9 @@ import {
     RECEIVE_SHOP_GOODS,
     RECEIVE_SHOP_INFO,
     RECEIVE_RATINGS,
+    //food
+    INCREMENT_FOOD_COUNT,
+    DECREMENT_FOOD_COUNT,
 } from './mutation-types'
 
 import {
@@ -112,5 +115,14 @@ export default {
             // 數據更新後通知組件
             callback && callback()
         }
-    }
+    },
+
+    // 同步更新food中的count數量
+    updateFoodCount({ commit }, { isAdd, food }) {
+        if (isAdd) { // 增加
+            commit(INCREMENT_FOOD_COUNT, { food })
+        } else { // 減少
+            commit(DECREMENT_FOOD_COUNT, { food })
+        }
+    },
 }
