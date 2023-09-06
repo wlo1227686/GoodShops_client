@@ -24,7 +24,7 @@
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
-                <div class="content">
+                <div class="content" @click="showFoodInfo(food)">
                   <h2 class="name">{{ food.name }}</h2>
                   <p class="desc">{{ food.description }}</p>
                   <div class="extra">
@@ -46,14 +46,14 @@
       </div>
       <!-- <ShopCart /> -->
     </div>
+    <FoodInfo :foodInfo="foodInfo" ref="foodInfo" />
   </div>
-  <!-- <Food :food="food" ref="food" /> -->
 </template>
 <script>
 import BScroll from 'better-scroll'
 import { mapState } from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl.vue'
-// import Food from '../../../components/Food/Food.vue'
+import FoodInfo from '../../../components/FoodInfo/FoodInfo.vue'
 // import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
 
@@ -62,7 +62,7 @@ export default {
     return {
       scrollY: 0, // 右側分類當前滑動到的座標 (滑動過程隨時變化)
       tops: [], // 所有右側分類<li>的Top所組成的陣列(初始化後則不變動)
-      // food: {}, // 需要显示的food
+      foodInfo: {}, // 要顯示的food資訊
     }
   },
   mounted() {
@@ -136,23 +136,22 @@ export default {
     clickMenuitem(index) { // 點擊左側分類右側滑動到對應效果
       // 指定右側列表滑動到對應位置
       const y = this.tops[index]
-      this.scrollY = y 
+      this.scrollY = y
       // 平滑滾動右側列表
       this.foodsScroll.scrollTo(0, -y, 300)
     },
-
-    // 显示点击的food
-    // showFood(food) {
-    //     // 设置food
-    //     this.food = food
-    //     // 显示food组件 (在父组件中调用子组件对象的方法)
-    //     this.$refs.food.toggleShow()
-    // }
+    // 顯示foodInfo
+    showFoodInfo(food) {
+      //設置food
+      this.foodInfo = food
+      // 顯示/隱藏組件
+      this.$refs.foodInfo.toggleShow()
+    },
   },
 
   components: {
     CartControl,
-    // Food,
+    FoodInfo,
     // ShopCart
   }
 }
