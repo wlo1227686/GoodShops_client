@@ -10,5 +10,6 @@ export default {
     userInfo: {}, // 用戶訊息
     shopGoods: [], // 商家菜單
     ratings: [], // 商家評論
-    shopInfo: {}, // 商家資訊 
+    shopInfo: {}, // 商家資訊
+    cartFoods: [], //購物車中的食物列表
 }

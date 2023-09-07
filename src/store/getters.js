@@ -3,4 +3,10 @@
  */
 export default {
 
+    totalCount(state) { // 總數量
+        return state.cartFoods.reduce((preTotal, food) => preTotal + food.count, 0)
+    },
+    totalPrice(state) { // 總金額
+        return state.cartFoods.reduce((preTotal, food) => preTotal + (food.count * food.price), 0)
+    },
 }

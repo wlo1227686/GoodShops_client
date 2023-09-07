@@ -14,3 +14,4 @@ export const RECEIVE_SHOP_INFO = 'receive_shop_info' // 接收商家簡介
 // food.count
 export const INCREMENT_FOOD_COUNT = 'increment_food_count' // 增加food中count數量
 export const DECREMENT_FOOD_COUNT = 'decrement_food_count' // 減少food中count數量
+export const CLEAR_CART_FOOD ='clear_cart_food' // 清空購物車

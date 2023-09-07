@@ -44,7 +44,7 @@
           </li>
         </ul>
       </div>
-      <!-- <ShopCart /> -->
+      <ShopCart />
     </div>
     <FoodInfo :foodInfo="foodInfo" ref="foodInfo" />
   </div>
@@ -54,7 +54,7 @@ import BScroll from 'better-scroll'
 import { mapState } from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl.vue'
 import FoodInfo from '../../../components/FoodInfo/FoodInfo.vue'
-// import ShopCart from '../../../components/ShopCart/ShopCart.vue'
+import ShopCart from '../../../components/ShopCart/ShopCart.vue'
 
 
 export default {
@@ -152,7 +152,7 @@ export default {
   components: {
     CartControl,
     FoodInfo,
-    // ShopCart
+    ShopCart,
   }
 }
 </script>

@@ -14,6 +14,7 @@ import {
     RECEIVE_RATINGS,
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
+    CLEAR_CART_FOOD,
 } from './mutation-types'
 
 export default {
@@ -53,14 +54,29 @@ export default {
         if (!food.count) { // 首次增加
             // 在已經有數據綁定的物件,添加數據綁定
             Vue.set(food, 'count', 1)
+            // 將food添加至cartFoods購物車中
+            state.cartFoods.push(food)
         } else {
             food.count++
         }
     },
     //food(減少)
     [DECREMENT_FOOD_COUNT](state, { food }) {
-        if (food.count && food.count > 0) {
+        if (food.count) { // 確認有數量才減去
             food.count--
+            if (food.count === 0) { // 若數量為0則將food從cartFoods中移除
+                state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
+            }
         }
+    },
+    //cartFood清空購物車
+    [CLEAR_CART_FOOD](state) {
+        // 移除food內的count參數
+        state.cartFoods.forEach(food => {
+            // 移除該物件中的count參數
+            Vue.delete(food, 'count')
+        });
+        // 清空購物車
+        state.cartFoods = []
     }
 }

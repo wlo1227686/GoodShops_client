@@ -14,6 +14,7 @@ import {
     //food
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
+    CLEAR_CART_FOOD,
 } from './mutation-types'
 
 import {
@@ -125,4 +126,9 @@ export default {
             commit(DECREMENT_FOOD_COUNT, { food })
         }
     },
+
+    // 同步清空購物車CartFoods
+    clearCartFoods({ commit }) {
+        commit(CLEAR_CART_FOOD)
+    }
 }
