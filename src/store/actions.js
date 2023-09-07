@@ -10,7 +10,7 @@ import {
     //Shop
     RECEIVE_SHOP_GOODS,
     RECEIVE_SHOP_INFO,
-    RECEIVE_RATINGS,
+    RECEIVE_SHOP_RATINGS,
     //food
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
@@ -99,11 +99,13 @@ export default {
     },
 
     // 異步取得商家評價
-    async getShopRatings({ commit }) {
+    async getShopRatings({ commit }, callback) {
         const result = await reqShopRatings()
         if (result.code === 0) {
-            const ratings = result.data
-            commit(RECEIVE_RATINGS, { ratings })
+            const shopRatings = result.data
+            commit(RECEIVE_SHOP_RATINGS, { shopRatings })
+            // 數據更新後通知組件
+            callback && callback()
         }
     },
 

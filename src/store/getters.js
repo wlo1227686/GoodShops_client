@@ -9,4 +9,11 @@ export default {
     totalPrice(state) { // 總金額
         return state.cartFoods.reduce((preTotal, food) => preTotal + (food.count * food.price), 0)
     },
+
+    positiveSize(state) { // 滿意總筆數
+        return state.shopRatings.reduce((preTotal, ratings) => preTotal + (ratings.rateType === 0 ? 1 : 0), 0)
+    },
+    negativeSize(state) { // 不滿意總筆數
+        return state.shopRatings.reduce((preTotal, ratings) => preTotal + (ratings.rateType === 1 ? 1 : 0), 0)
+    }
 }

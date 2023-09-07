@@ -9,7 +9,7 @@ import data from './data.json'
 Mock.mock('/shopGoods', { code: 0, data: data.goods })
 
 // 返回ratings的接口
-Mock.mock('/ratings', { code: 0, data: data.ratings })
+Mock.mock('/shopRatings', { code: 0, data: data.ratings })
 
 // 返回info的接口
 Mock.mock('/shopInfo', { code: 0, data: data.info })

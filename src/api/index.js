@@ -42,7 +42,7 @@ export const reqLogout = () => ajax(BASE_URL + '/logout')
 export const reqShopInfo =()=>ajax('/shopInfo')
 
 //Shop頁面取得商家評價
-export const reqShopRatings =()=>ajax('/shop_ratings')
+export const reqShopRatings =()=>ajax('/shopRatings')
 
 //Shop頁面取得商家菜單
 export const reqShopGoods =()=>ajax('/shopGoods')

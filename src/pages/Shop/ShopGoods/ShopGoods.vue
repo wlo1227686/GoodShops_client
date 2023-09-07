@@ -50,8 +50,8 @@
   </div>
 </template>
 <script>
-import BScroll from 'better-scroll'
-import { mapState } from 'vuex'
+import BScroll from 'better-scroll' // 頁面滑動功能
+import { mapState } from 'vuex' // vuex
 import CartControl from '../../../components/CartControl/CartControl.vue'
 import FoodInfo from '../../../components/FoodInfo/FoodInfo.vue'
 import ShopCart from '../../../components/ShopCart/ShopCart.vue'

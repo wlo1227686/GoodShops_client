@@ -11,7 +11,7 @@ import {
     //Shop
     RECEIVE_SHOP_GOODS,
     RECEIVE_SHOP_INFO,
-    RECEIVE_RATINGS,
+    RECEIVE_SHOP_RATINGS,
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
     CLEAR_CART_FOOD,
@@ -42,8 +42,8 @@ export default {
         state.shopGoods = shopGoods
     },
 
-    [RECEIVE_RATINGS](state, { ratings }) {
-        state.ratings = ratings
+    [RECEIVE_SHOP_RATINGS](state, { shopRatings }) {
+        state.shopRatings = shopRatings
     },
 
     [RECEIVE_SHOP_INFO](state, { shopInfo }) {
