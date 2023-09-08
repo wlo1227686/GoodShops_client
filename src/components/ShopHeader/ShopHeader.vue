@@ -2,7 +2,7 @@
     <div class="shop-header">
         <!-- 透過vue的綁定方式來處理css的圖片訊息 -->
         <nav class="shop-nav" :style="{ backgroundImage: `url(${shopInfo.bgImg})` }">
-            <a class="back" @click="$router.back()">
+            <a class="back" @click="$router.replace('/msite')">
                 <i class="iconfont icon-arrow_left"></i>
             </a>
         </nav>
