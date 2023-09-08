@@ -185,13 +185,13 @@ export default {
     background #fff
     text-align center
     img
-      box-shadow: 0 0 0.4vw 0 rgba(0, 0, 0, .2);
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 66px
-      height: 66px
-      border-radius: 2px
+      box-shadow 0 0 0.4vw 0 rgba(0, 0, 0, .2)
+      position absolute
+      top 0
+      left 50%
+      width 66px
+      height 66px
+      border-radius 2px
       margin-left -33px
       margin-top -40px
     .header-content

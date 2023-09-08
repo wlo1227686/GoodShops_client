@@ -11,7 +11,7 @@ import { Button } from 'mint-ui'
 
 import './mock/mockServer' // 加載mockServer服務
 import loadingGif from './common/img/loading.gif'
-
+import './fiters' // 加載自定義過濾器
 //註冊全局標籤
 Vue.component(Button.name, Button) // <mt-Button>
 
