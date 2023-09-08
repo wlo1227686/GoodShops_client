@@ -113,7 +113,6 @@ export default {
 
         filterRatings() {
             const { shopRatings, onlyShowText, selectRatingType } = this
-            console.log('selectRatingType=' + selectRatingType)
             // 依照條件過濾shopRatings的內容
             return shopRatings.filter((ratings) => {
                 // 取出 rateType,text用於以下判斷
@@ -157,13 +156,13 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/mixins.styl"
   .ratings
-    position: absolute
-    top: 40px
-    width: 100%
-    background: #fff
-    overflow: hidden
-    line-height: 0px
-    height: calc(100vh)
+    position absolute
+    top 40px
+    width 100%
+    background #fff
+    overflow hidden
+    line-height 0px
+    height calc(100vh)
     .overview
       display: flex
       padding: 8px 0
