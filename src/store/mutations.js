@@ -15,6 +15,7 @@ import {
     INCREMENT_FOOD_COUNT,
     DECREMENT_FOOD_COUNT,
     CLEAR_CART_FOOD,
+    RECEIVE_SEARCH_SHOPS,
 } from './mutation-types'
 
 export default {
@@ -49,6 +50,7 @@ export default {
     [RECEIVE_SHOP_INFO](state, { shopInfo }) {
         state.shopInfo = shopInfo
     },
+    
     //food(增加)
     [INCREMENT_FOOD_COUNT](state, { food }) {
         if (!food.count) { // 首次增加
@@ -60,6 +62,7 @@ export default {
             food.count++
         }
     },
+    
     //food(減少)
     [DECREMENT_FOOD_COUNT](state, { food }) {
         if (food.count) { // 確認有數量才減去
@@ -69,6 +72,7 @@ export default {
             }
         }
     },
+    
     //cartFood清空購物車
     [CLEAR_CART_FOOD](state) {
         // 移除food內的count參數
@@ -78,5 +82,9 @@ export default {
         });
         // 清空購物車
         state.cartFoods = []
+    },
+
+    [RECEIVE_SEARCH_SHOPS](state, { searchShops }) {
+        state.searchShops = searchShops
     }
 }

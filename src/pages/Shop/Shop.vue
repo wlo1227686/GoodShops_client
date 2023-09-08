@@ -12,8 +12,11 @@
             <div class="tab-item">
                 <router-link to="/shop/info">簡介</router-link>
             </div>
-            <!-- router-view 路由顯示 -->
-            <router-view />
+            <!-- 復用路由組件獲得後台數據 -->
+            <keep-alive>
+                <!-- router-view 路由顯示 -->
+                <router-view />
+            </keep-alive>
         </div>
     </div>
 </template>

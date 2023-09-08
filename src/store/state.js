@@ -12,4 +12,5 @@ export default {
     shopRatings: [], // 商家評論
     shopInfo: {}, // 商家資訊
     cartFoods: [], //購物車中的食物列表
+    searchShops:[], // 搜尋頁面指定的商家清單
 }

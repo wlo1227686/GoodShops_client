@@ -1,60 +1,61 @@
 <template>
-    <transition name="fade">
-        <!-- <div class="food" v-show="isShow"> -->
-        <div class="food" v-show="showStatus === 1">
-            <div class="food-content">
-                <div class="image-header">
-                    <img :src="foodInfo.image">
-                    <p class="foodpanel-desc">{{ foodInfo.info }}</p>
-                    <div class="back" @click="toggleHidden">
-                        <i class="iconfont icon-arrow_left"></i>
-                    </div>
-                </div>
-                <div class="content">
-                    <h1 class="title">{{ foodInfo.name }}</h1>
-                    <div class="detail">
-                        <span class="sell-count">月售{{ foodInfo.sellCount }}份</span>
-                        <span class="rating">好評率{{ foodInfo.rating }}%</span>
-                    </div>
-                    <div class="price">
-                        <span class="now">${{ foodInfo.price }}</span>
-                        <span class="old" v-show="foodInfo.oldPrice">${{ foodInfo.oldPrice }}</span>
-                    </div>
-                    <div class="cartcontrol-wrapper">
-                        <CartControl :food="foodInfo" />
-                    </div>
-                </div>
-            </div>
-            <div class="food-cover" @click="toggleHidden"></div>
+  <transition name="fade">
+    <!-- <div class="food" v-show="isShow"> -->
+    <div class="food" v-show="showStatus === 1">
+      <div class="food-content">
+        <div class="image-header">
+          <!-- 透過lazy的方式處理圖片載入 -->
+          <img v-lazy="foodInfo.image" >
+          <p class="foodpanel-desc">{{ foodInfo.info }}</p>
+          <div class="back" @click="toggleHidden">
+            <i class="iconfont icon-arrow_left"></i>
+          </div>
         </div>
-    </transition>
+        <div class="content">
+          <h1 class="title">{{ foodInfo.name }}</h1>
+          <div class="detail">
+            <span class="sell-count">月售{{ foodInfo.sellCount }}份</span>
+            <span class="rating">好評率{{ foodInfo.rating }}%</span>
+          </div>
+          <div class="price">
+            <span class="now">${{ foodInfo.price }}</span>
+            <span class="old" v-show="foodInfo.oldPrice">${{ foodInfo.oldPrice }}</span>
+          </div>
+          <div class="cartcontrol-wrapper">
+            <CartControl :food="foodInfo" />
+          </div>
+        </div>
+      </div>
+      <div class="food-cover" @click="toggleHidden"></div>
+    </div>
+  </transition>
 </template>
 <script>
 import CartControl from '../CartControl/CartControl.vue'
 export default {
-    props: {
-        foodInfo: Object
-    },
-    data() {
-        return {
-            showStatus: 0, // 0隱藏 1顯示
-            // isShow: false
-        }
-    },
-    methods: {
-        // toggleShow() { // 顯示/隱藏 食物資訊
-        //     this.isShow = !this.isShow
-        // },
-        toggleShow() { // (顯示)食物資訊
-            this.showStatus = 1
-        },
-        toggleHidden() { // (隱藏)食物資訊
-            this.showStatus = 0
-        },
-
-    }, components: {
-        CartControl
+  props: {
+    foodInfo: Object
+  },
+  data() {
+    return {
+      showStatus: 0, // 0隱藏 1顯示
+      // isShow: false
     }
+  },
+  methods: {
+    // toggleShow() { // 顯示/隱藏 食物資訊
+    //     this.isShow = !this.isShow
+    // },
+    toggleShow() { // (顯示)食物資訊
+      this.showStatus = 1
+    },
+    toggleHidden() { // (隱藏)食物資訊
+      this.showStatus = 0
+    },
+
+  }, components: {
+    CartControl
+  }
 }
 </script>
 <style lang="stylus">
