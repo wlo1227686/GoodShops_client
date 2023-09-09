@@ -108,6 +108,11 @@
 
     localhost:8080    // 訪問dev環境(config/index.js)
 
+## 參考資源
+
+參考網路上資源
+[硅谷外賣](https://www.youtube.com/playlist?list=PLmOn9nNkQxJFI2BHGAfzO4UPw7tEoFv8k)
+並實作相關專案
 
 ## Build Setup
 
