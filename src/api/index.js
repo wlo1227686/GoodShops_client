@@ -28,13 +28,13 @@ export const reqLoginPwd = ({ name, pwd, captcha }) => ajax(BASE_URL + '/login_p
 // 7. 登入_手機號碼驗證碼
 export const reqLoginSms = (phone, code) => ajax(BASE_URL + '/login_sms', { phone, code }, 'POST')
 
-// 8. 發送短信驗證碼
+// 8. 發送一次性短信驗證碼
 export const reqSendPhoneCode = (phone) => ajax(BASE_URL + '/sendcode', { phone })
 
 // 9. 根據會話獲取用戶信息
 export const reqUserInfo = () => ajax(BASE_URL + '/userinfo')
 
-//10. 用戶登出
+//10. 用戶帳號登出
 export const reqLogout = () => ajax(BASE_URL + '/logout')
 
 // 透過mockjs來產生畫面資料
